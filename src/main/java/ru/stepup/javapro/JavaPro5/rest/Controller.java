@@ -20,7 +20,7 @@ public class Controller {
         this.productService = productService;
     }
 
-    @GetMapping("/products/by-userid")
+    @GetMapping("/products")
     public List<ProductDto> getAllProductsByUserId(
             @RequestParam Long userId
     ) {
