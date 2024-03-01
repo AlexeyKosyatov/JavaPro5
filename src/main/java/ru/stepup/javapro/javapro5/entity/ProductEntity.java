@@ -1,9 +1,11 @@
-package ru.stepup.javapro.JavaPro5.dto;
+package ru.stepup.javapro.javapro5.entity;
 
-public class ProductDto {
+import java.math.BigDecimal;
+
+public class ProductEntity {
     private Long id;
     private String accountNumber;
-    private Double balance;
+    private BigDecimal balance;
     private Integer type;
     private Long userId;
 
@@ -15,7 +17,7 @@ public class ProductDto {
         this.userId = userId;
     }
 
-    public ProductDto(Long id, String accountNumber, Double balance, Integer type, Long userId) {
+    public ProductEntity(Long id, String accountNumber, BigDecimal balance, Integer type, Long userId) {
         this.id = id;
         this.accountNumber = accountNumber;
         this.balance = balance;
@@ -23,11 +25,11 @@ public class ProductDto {
         this.userId = userId;
     }
 
-    public Double getBalance() {
+    public BigDecimal getBalance() {
         return balance;
     }
 
-    public void setBalance(Double balance) {
+    public void setBalance(BigDecimal balance) {
         this.balance = balance;
     }
 
@@ -39,7 +41,7 @@ public class ProductDto {
         return type;
     }
 
-    public ProductDto() {
+    public ProductEntity() {
     }
 
     public Long getId() {

@@ -1,8 +1,10 @@
-package ru.stepup.javapro.JavaPro5.repository;
+package ru.stepup.javapro.javapro5.repository.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.stepup.javapro.JavaPro5.entity.ProductEntity;
+import ru.stepup.javapro.javapro5.entity.ProductEntity;
+import ru.stepup.javapro.javapro5.repository.HikaryConnectionPool;
+import ru.stepup.javapro.javapro5.repository.ProductDao;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -13,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class ProductDao {
+public class ProductDaoImpl implements ProductDao {
 
     private DataSource dataSource;
 
@@ -22,13 +24,14 @@ public class ProductDao {
         this.dataSource = hikaryConnectionPool.dataSource();
     }
 
+    @Override
     public void create(ProductEntity productEntity) {
         String sql = "insert into product (id, account_number, balance, type, user_id) values(?, ?, ?, ?, ?)";
         try (Connection connection = dataSource.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setLong(1, productEntity.getId());
             ps.setString(2, productEntity.getAccountNumber());
-            ps.setDouble(3, productEntity.getBalance());
+            ps.setBigDecimal(3, productEntity.getBalance());
             ps.setInt(4, productEntity.getType());
             ps.setLong(5, productEntity.getUserId());
             ps.executeUpdate();
@@ -37,6 +40,7 @@ public class ProductDao {
         }
     }
 
+    @Override
     public void deleteAll() {
         String sql = "delete from product";
         try (Connection connection = dataSource.getConnection();
@@ -47,6 +51,7 @@ public class ProductDao {
         }
     }
 
+    @Override
     public List<ProductEntity> selectAllByUserId(Long userId) {
         String sql = "select * from product where user_id = ?";
         try (Connection connection = dataSource.getConnection();
@@ -58,7 +63,7 @@ public class ProductDao {
                 var product = new ProductEntity(
                         rs.getLong("id"),
                         rs.getString("account_number"),
-                        rs.getDouble("balance"),
+                        rs.getBigDecimal("balance"),
                         rs.getInt("type"),
                         rs.getLong("user_id")
                 );
@@ -70,6 +75,7 @@ public class ProductDao {
         }
     }
 
+    @Override
     public ProductEntity selectById(Long id) {
         String sql = "select * from product where id = ?";
         try (Connection connection = dataSource.getConnection();
@@ -80,7 +86,7 @@ public class ProductDao {
                 return new ProductEntity(
                         rs.getLong("id"),
                         rs.getString("account_number"),
-                        rs.getDouble("balance"),
+                        rs.getBigDecimal("balance"),
                         rs.getInt("type"),
                         rs.getLong("user_id")
                 );
@@ -91,6 +97,7 @@ public class ProductDao {
         }
     }
 
+    @Override
     public void deleteById(Long id) {
         String sql = "delete from product where Id=?";
         try (Connection connection = dataSource.getConnection();

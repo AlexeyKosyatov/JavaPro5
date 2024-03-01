@@ -1,4 +1,4 @@
-package ru.stepup.javapro.JavaPro5;
+package ru.stepup.javapro.javapro5;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

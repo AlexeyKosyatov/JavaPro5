@@ -1,4 +1,4 @@
-package ru.stepup.javapro.JavaPro5.repository;
+package ru.stepup.javapro.javapro5.repository;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -10,20 +10,19 @@ import javax.sql.DataSource;
 @Component
 public class HikaryConnectionPool {
     @Value("${database.driver-class-name}")
-    String driverClassName;
+    private String driverClassName;
 
     @Value("${database.jdbc-url}")
-    String jdbcUrl;
+    private String jdbcUrl;
 
     @Value("${database.username}")
-    String username;
+    private String username;
 
     @Value("${database.password}")
-    String password;
+    private String password;
 
     @Value("${database.maximum-pool-size}")
-    int maximumPoolSize;
-
+    private int maximumPoolSize;
 
     public DataSource dataSource() {
         HikariConfig config = new HikariConfig();
